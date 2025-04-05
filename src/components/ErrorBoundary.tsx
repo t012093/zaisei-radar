@@ -1,8 +1,7 @@
-import React, { Component, ErrorInfo, ReactNode } from 'react';
+import { Component, ErrorInfo, ReactNode } from 'react';
 
 interface Props {
   children: ReactNode;
-  fallback?: ReactNode;
 }
 
 interface State {
@@ -19,22 +18,28 @@ class ErrorBoundary extends Component<Props, State> {
     return { hasError: true, error };
   }
 
-  public componentDidCatch(error: Error, errorInfo: ErrorInfo) {
-    console.error('Error caught by boundary:', error, errorInfo);
+  public componentDidCatch(error: Error, errorInfo: ErrorInfo): void {
+    console.error('Uncaught error:', error, errorInfo);
   }
 
-  public render() {
+  public render(): ReactNode {
     if (this.state.hasError) {
-      return this.props.fallback || (
-        <div className="p-4 bg-red-50 text-red-600 rounded-lg">
-          <h3 className="font-semibold mb-2">エラーが発生しました</h3>
-          <p className="text-sm">{this.state.error?.message}</p>
-          <button
-            onClick={() => this.setState({ hasError: false })}
-            className="mt-2 px-4 py-2 bg-red-100 text-red-700 rounded hover:bg-red-200"
-          >
-            再試行
-          </button>
+      return (
+        <div className="min-h-screen flex items-center justify-center bg-gray-50">
+          <div className="text-center p-8">
+            <h1 className="text-2xl font-bold text-red-600 mb-4">
+              エラーが発生しました
+            </h1>
+            <p className="text-gray-600 mb-4">
+              申し訳ありませんが、問題が発生しました。
+            </p>
+            <button
+              onClick={() => window.location.reload()}
+              className="bg-blue-500 text-white px-4 py-2 rounded hover:bg-blue-600"
+            >
+              ページを再読み込み
+            </button>
+          </div>
         </div>
       );
     }

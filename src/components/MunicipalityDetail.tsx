@@ -1,5 +1,5 @@
 import React, { useMemo } from 'react';
-import { Municipality, MetricType, METRICS, FinancialHealthStatus } from '../types';
+import { Municipality, METRICS, FinancialHealthStatus } from '../types';
 import { getIndicatorInfo, getMetricValue } from '../utils/dataProcessing';
 import {
   RadarChart,

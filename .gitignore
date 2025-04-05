@@ -7,6 +7,7 @@ yarn-error.log*
 pnpm-debug.log*
 lerna-debug.log*
 
+# Dependencies
 node_modules
 dist
 dist-ssr
@@ -15,7 +16,6 @@ dist-ssr
 # Editor directories and files
 .vscode/*
 !.vscode/extensions.json
-!.vscode/settings.json
 .idea
 .DS_Store
 *.suo
@@ -24,42 +24,20 @@ dist-ssr
 *.sln
 *.sw?
 
-# Environment variables
+# Environment files
 .env
 .env.*
+!.env.example
 
-# Temporary files
-*.tmp
-*.temp
-*.bak
+# Build files
+build/
+dist/
+coverage/
 
-# Build output
-/build
-/out
-/.next
-/.nuxt
-/.output
-
-# Cache directories
-.cache
-.parcel-cache
+# Cache
+.cache/
+.temp/
 .eslintcache
-.npm
 
-# Coverage directory
-/coverage
-
-# Cypress
-/cypress/videos
-/cypress/screenshots
-
-# Debug
-.debug
-debug.log
-
-# Local data
-/data
-*.xlsx
-*.xls
-*.csv
-!public/*.csv
+# CSV data files
+# public/*.csv を除外から削除（CSVファイルをデプロイに含める）

@@ -22,6 +22,11 @@ const App: React.FC = () => {
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState<string | null>(null);
   const [detailLoading, setDetailLoading] = useState(false);
+  const [filters, setFilters] = useState<FilterCriteria>({
+    prefectures: [],
+    types: [],
+    searchText: ''
+  });
 
   useEffect(() => {
     const loadData = async () => {
@@ -85,10 +90,14 @@ const App: React.FC = () => {
     loadData();
   }, []);
 
-  const handleFilterChange = useCallback((criteria: FilterCriteria) => {
-    const filtered = filterData(data, criteria);
+  useEffect(() => {
+    const filtered = filterData(data, filters);
     setFilteredData(calculateRankings(filtered));
-  }, [data]);
+  }, [data, filters]);
+
+  const handleFilterChange = useCallback((criteria: FilterCriteria) => {
+    setFilters(criteria);
+  }, []);
 
   const handleMetricChange = useCallback((metric: MetricType) => {
     setSelectedMetric(metric);
@@ -148,6 +157,7 @@ const App: React.FC = () => {
           <div className="lg:col-span-3">
             <ErrorBoundary>
               <FilterPanel
+                municipalities={data}
                 onFilterChange={handleFilterChange}
                 onMetricChange={handleMetricChange}
                 selectedMetric={selectedMetric}
